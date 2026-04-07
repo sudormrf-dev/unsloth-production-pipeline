@@ -1,0 +1,26 @@
+model:
+  name: "unsloth/llama-3-8b-bnb-4bit"
+  max_seq_length: 2048
+
+data:
+  dataset: "tatsu-lab/alpaca"
+  max_samples: 10000
+  train_split: 0.9
+
+training:
+  epochs: 1
+  batch_size: 2
+  gradient_accumulation: 4
+  learning_rate: 2.0e-4
+  lora_r: 16
+  lora_alpha: 16
+  lora_dropout: 0.0               # Unsloth is optimized for dropout=0
+  fp16: true
+  warmup_ratio: 0.03
+  scheduler: "cosine"
+
+output:
+  dir: "outputs/finetuned"
+  push_to_hub: false
+  export_gguf: false
+  gguf_quantization: "q4_k_m"
